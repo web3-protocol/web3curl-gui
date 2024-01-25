@@ -1,25 +1,25 @@
 <script setup>
-import { onMounted, ref } from "vue";
-import { Modal } from "bootstrap";
-defineProps({
-  title: {
-    type: String,
-    default: "<<Title goes here>>",
-  },
-});
-let modalEle = ref(null);
-let thisModalObj = null;
+  import { onMounted, ref } from "vue";
+  import { Modal } from "bootstrap";
+  defineProps({
+    title: {
+      type: String,
+      default: "<<Title goes here>>",
+    },
+  });
+  let modalEle = ref(null);
+  let thisModalObj = null;
 
-onMounted(() => {
-  thisModalObj = new Modal(modalEle.value);
-});
-function _show() {
-  thisModalObj.show();
-}
-function _hide() {
-  thisModalObj.hide();
-}
-defineExpose({ show: _show, hide: _hide });
+  onMounted(() => {
+    thisModalObj = new Modal(modalEle.value);
+  });
+  function _show() {
+    thisModalObj.show();
+  }
+  function _hide() {
+    thisModalObj.hide();
+  }
+  defineExpose({ show: _show, hide: _hide });
 </script>
 
 <template>

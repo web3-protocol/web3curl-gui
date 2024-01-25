@@ -25,33 +25,33 @@
     // The list of URLs of the library
     items: [{
         id: 1,
-        name: 'AA',
-        url: 'web3://xoxo'
+        name: "Vitalik's blog on Arbitrum Nova",
+        url: "web3://vitalikblog.eth"
       }, 
       {
         id: 2,
-        name: 'YY',
-        url: 'web3://yoyo'
+        name: "Display a Terraform (on-chain NFT)",
+        url: "web3://0x4e1f41613c9084fdb9e34e11fae9412427480e56/tokenHTML/9352"
       },
       {
         id: 3,
-        name: 'CC',
-        url: 'web3://yoyo1'
+        name: "USDC balance of nemorino.eth",
+        url: "web3://usdc.eth/balanceOf/nemorino.eth?returns=(uint256)"
       },
       {
         id: 4,
-        name: 'DD',
-        url: 'web3://yoyo2'
+        name: "Fetch a complex data structure",
+        url: "web3://0x4e1f41613c9084fdb9e34e11fae9412427480e56/structureData/1699519297?returns=((uint,uint,int,int,int)[20])"
       },
       {
         id: 5,
-        name: 'FF',
-        url: 'web3://yoyox'
+        name: "ResourceRequest resolve mode website",
+        url: "web3://0x2b51A751d3c7d3554E28DC72C3b032E5f56Aa656/view/1234?x=1&b=2",
       },
       {
         id: 6,
-        name: 'GG',
-        url: 'web3://yeex'
+        name: "Call a contract method on goerli",
+        url: "web3://0x76010876050387FA66E28a1883aD73d576D88Bf2:5/levelAndTile/2/50?returns=(uint256,uint256)"
       },
       {
         id: 7,
@@ -112,8 +112,11 @@
     // Library item not yet present: We add tab
     if(tabIndex == -1) {
       urlTabs.value.push({
-        libraryItemId: libraryItemId
+        libraryItemId: libraryItemId,
+        url: urlLibrary.value.items.find(item => item.id == libraryItemId).url
       })
+      // And we switch the tab
+      activeTab.value = urlTabs.value.length - 1;
     }
     // Library item present: we switch tab
     else {

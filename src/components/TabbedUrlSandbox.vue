@@ -101,10 +101,7 @@
 
     return urlLibrary.value.tree.folders.flatMap((folder, index) => extractFolders(folder, `${index}`));
   });
-
-
   
-
   
   // Save as modal
   const saveAsModal = ref(null);
