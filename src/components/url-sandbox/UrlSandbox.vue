@@ -56,13 +56,20 @@
     console.log("Loading URL: " + url.value);
     loading.value = true;
 
+    // Reinit all to empty
     errorMessage.value = "";
-    parsedUrl.value = {}
+    parsedUrl.value = {
+      url: url.value,
+    }
+    contractReturn.value = {}
+    fetchedUrl.value = {}
+    outputBuffer.value = new Uint8Array()
+
     let urlMainParts
     // Step 1.1 : Extract parts of the URL, determine if a chain id was provided.
     try {
       let chainId
-      ({urlMainParts, chainId} = web3Client.parseUrlBasic(url.value))
+      ({urlMainParts, chainId} = web3Client.parseUrlBasic(parsedUrl.value.url))
       parsedUrl.value.chainId = chainId
     }
     catch(err) {
@@ -90,10 +97,8 @@
       const resolveModeDeterminationResult = await web3Client.determineResolveMode(parsedUrl.value.contractAddress, parsedUrl.value.chainId)
       // Web3 resolve mode: 'auto', 'manual' or 'resourceRequest'
       parsedUrl.value.mode = resolveModeDeterminationResult.mode
-      // The calldata sent to the contract to determine the resolve mode
-      parsedUrl.value.modeDeterminationCalldata = resolveModeDeterminationResult.calldata
-      // The data returned by the contract to determine the resolve mode
-      parsedUrl.value.modeDeterminationReturn = resolveModeDeterminationResult.return
+      // Infos about the mode determination
+      parsedUrl.value.modeDetermination = resolveModeDeterminationResult.modeDetermination
     }
     catch(err) {
       loading.value = false;

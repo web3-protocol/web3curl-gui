@@ -24,7 +24,7 @@
           Loading...
         </span>
         <span v-else-if="parsedUrl.mode != null">
-          {{ parsedUrl.modeDeterminationCalldata }}
+          {{ parsedUrl.modeDetermination.calldata }}
         </span>
       </div>
 
@@ -34,7 +34,7 @@
           Loading...
         </span>
         <span v-else-if="parsedUrl.mode != null">
-          {{ parsedUrl.modeDeterminationReturn }} (ascii: <code>{{ showBytesAsAscii(parsedUrl.modeDeterminationReturn) }}</code>)
+          {{ parsedUrl.modeDetermination.decodedResult }} (ascii: <code>{{ showBytesAsAscii(parsedUrl.modeDetermination.decodedResult) }}</code>)
         </span>
       </div>
 

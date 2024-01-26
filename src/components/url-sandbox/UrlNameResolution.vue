@@ -52,7 +52,7 @@
         </span>
         <span v-else-if="parsedUrl.contractAddress != null">
           <span v-if="parsedUrl.nameResolution.fetchNameResolverCall">
-            <ContractAddress :address="parsedUrl.nameResolution.fetchNameResolverCall.result.decodedResult" :chainId="parsedUrl.nameResolution.resolverChainId" :chainList="chainList" />
+            <ContractAddress :address="parsedUrl.nameResolution.fetchNameResolverCall.decodedResult" :chainId="parsedUrl.nameResolution.resolverChainId" :chainList="chainList" />
           </span>
           <span v-else>
             (not made)
@@ -67,7 +67,7 @@
         </span>
         <span v-else-if="parsedUrl.contractAddress != null">
           <span v-if="parsedUrl.nameResolution.erc6821ContentContractTxtCall">
-            {{ parsedUrl.nameResolution.erc6821ContentContractTxtCall.result.decodedResult }}
+            {{ parsedUrl.nameResolution.erc6821ContentContractTxtCall.decodedResult }}
           </span>
           <span v-else>
             (not made)
@@ -82,7 +82,7 @@
         </span>
         <span v-else-if="parsedUrl.contractAddress != null">
           <span v-if="parsedUrl.nameResolution.resolveNameCall">
-            <ContractAddress :address="parsedUrl.nameResolution.resolveNameCall.result.decodedResult" :chainId="parsedUrl.nameResolution.resolverChainId" :chainList="chainList" />
+            <ContractAddress :address="parsedUrl.nameResolution.resolveNameCall.decodedResult" :chainId="parsedUrl.nameResolution.resolverChainId" :chainList="chainList" />
           </span>
           <span v-else>
             (not made)
@@ -97,7 +97,7 @@
         </span>
         <span v-else-if="parsedUrl.contractAddress != null">
           <span v-if="parsedUrl.nameResolution.resolveNameCall">
-            <ContractAddress :address="parsedUrl.nameResolution.resultAddress" :chainId="parsedUrl.nameResolution.resultChainId" :chainList="chainList" />
+            <ContractAddress :address="parsedUrl.nameResolution.resultAddress" :chainId="parsedUrl.nameResolution.resultChainId ?? parsedUrl.nameResolution.resolverChainId" :chainList="chainList" />
           </span>
           <span v-else>
             (not made)
