@@ -1,12 +1,21 @@
 
 <template>
 
-  <div>
-    <div>
-      HTTP status code: {{ fetchedUrl.httpCode }}
-    </div>
-    <div>
-      Content type: {{ contentTypeHeaderValue }}
+  <div class="main">
+    <div class="basic-infos">
+      <div>
+        <span class="title">HTTP status code:</span> {{ fetchedUrl.httpCode }}
+      </div>
+      <div>
+        <span class="title">Content type:</span> 
+        {{ contentTypeHeaderValue }}
+        <span v-if="fetchedUrl.httpCode != null && contentTypeHeaderValue == null" class="text-warning"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" /> 
+          No Content-type
+          <span v-if="fetchedUrl.parsedUrl.mode == 'auto'">
+            : Consider using <a href="https://docs.web3url.io/web3-url-structure/resolve-mode/mode-auto#mime.content-and-mime.type" target="_blank">?mime.type or ?mime.content</a>
+          </span>
+        </span>
+      </div>
     </div>
     <ul class="nav nav-tabs">
       <li class="nav-item">
@@ -24,10 +33,14 @@
     </ul>
     <div class="tab-content">
       <div class="tab-pane fade" :class="{ 'show active': activeTab === 'preview' }">
+
+        <span class="iframe-helptext" v-if="contentTypeHeaderValue == 'text/html'"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" /> Warning: Linked <code>web3://</code> CSS/JS files won't load, as the browser don't know how to load them. Any <code>web3://</code> links won't work as well. Use "Preview in gateway" for a live preview.</span>
         <iframe :src="dataUrlPreview"></iframe>
+
       </div>
       <div class="tab-pane fade" :class="{ 'show active': activeTab === 'previewInGateway' }">
         
+        <span class="iframe-helptext" v-if="contentTypeHeaderValue == 'text/html'"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" /> Warning: Loaded via an external <a href="https://docs.web3url.io/web3-clients/https-gateway" target="_blank"><code>web3://</code> gateway</a>, so that the linked CSS/JS/... ressources are loaded. <br />The gateway result may differ due to different chain configuration (different RPC provider, domain name supported, ...)</span>
         <iframe :src="gatewayPreviewUrl"></iframe>
 
       </div>
@@ -73,9 +86,8 @@
       type: Uint8Array,
       required: true
     },
-    loading: {
-      type: Boolean,
-      required: true
+    loadingStep: {
+      type: String
     }
   });
   const dataUrlPreview = ref('')
@@ -141,7 +153,7 @@
     return gatewayUrl;
   });
 
-  // On outputBuffer change : update the dataurl preview
+  // On outputBuffer change
   watch(() => props.outputBuffer, async (newOutputBuffer, oldOutputBuffer) => {
     // Length of 0 : return right away
     if(newOutputBuffer.length === 0) {
@@ -149,8 +161,17 @@
       return;
     }
 
+    // If content type is text/html, and tab is preview, switch to preview in gateway
+    if(contentTypeHeaderValue.value == 'text/html' && activeTab.value == 'preview') {
+      activeTab.value = 'previewInGateway';
+    }
+
+    //
+    // Update the iframe preview: build a dataurl, insert it
+    //
+
     // Create a blob containing the outputBuffer
-    const contentType = getContentTypeHeaderValue();
+    const contentType = contentTypeHeaderValue.value;
     let blobOptions = {};
     if(contentType) {
       blobOptions = { type: contentType };
@@ -213,9 +234,32 @@
 </script>
 
 <style scoped>
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .basic-infos {
+    display: flex;
+    gap: 20px;
+  }
+
+  .basic-infos .title {
+    font-weight: bold;
+  }
+
+  .iframe-helptext {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #6c757d;
+    text-align: center;
+  }
+
   iframe {
     width: 100%;
-    height: 400px;
     border: none;
+    height: 600px;
   }
 </style>

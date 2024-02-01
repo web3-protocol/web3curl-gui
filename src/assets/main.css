@@ -1,6 +1,2 @@
 @import './base.css';
 
-#app {
-  display: flex;
-  gap: 20px;
-}

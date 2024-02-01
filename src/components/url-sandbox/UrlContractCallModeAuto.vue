@@ -2,12 +2,11 @@
   <div>
     <div class="entry">
       <span>Method name: </span>
-      <span v-if="loading && parsedUrl.contractCallMode == null">
-        Loading...
-      </span>
-      <span v-else-if="parsedUrl.contractCallMode != null">
-        {{ parsedUrl.methodName }}
-      </span>
+      <Loader :loading="loading && parsedUrl.contractCallMode == null">
+        <span v-if="parsedUrl.contractCallMode != null">
+          {{ parsedUrl.methodName }}
+        </span>
+      </Loader>
     </div>
 
     <table class="table">
@@ -28,6 +27,7 @@
 </template>
 
 <script setup>
+  import Loader from '../common/Loader.vue';
   import { ref, computed } from 'vue';
 
   const url = defineModel('url', {

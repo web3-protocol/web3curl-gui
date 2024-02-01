@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="tabbed-url-sandbox">
     <div id="tabs-area">
       <ul class="nav nav-tabs">
         <li class="nav-item" 
@@ -11,14 +11,14 @@
             <button
               v-if="index == activeTab"
               @click="tabs.splice(index, 1)"
-              class="btn btn-danger btn-sm">
-              Remove
+              class="btn btn-outline-secondary btn-sm">
+              <font-awesome-icon :icon="['fas', 'xmark']" />
             </button>
           </a>
         </li>
       </ul>
       <div id="new-tab">
-        <button class="btn btn-primary" @click="tabs.push({})">New Tab</button>
+        <button class="btn btn-outline-secondary" @click="tabs.push({})">+</button>
       </div>
     </div>
 
@@ -27,17 +27,15 @@
         v-show="index == activeTab" 
         v-model:url="tab.url" >
         <template #urlButtons>
-          <button 
-            v-if="tab.libraryItemId != null"
-            class="btn btn-secondary"
-            @click="saveToLibrary()">
-            Save
-          </button>
-          <button 
-            class="btn btn-secondary"
-            @click="showSaveAsModal">
-            Save as
-          </button>
+          
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            </button>
+            <ul class="dropdown-menu">
+              <li><a v-if="tab.libraryItemId != null" class="dropdown-item" @click.prevent="saveToLibrary()" href="#">Save</a></li>
+              <li><a class="dropdown-item" @click.prevent="showSaveAsModal" href="#">Save as</a></li>
+            </ul>
+          </div>
         </template>
       </UrlSandbox>
     </div>
@@ -45,15 +43,22 @@
 
   <Modal title="Save to library" ref="saveAsModal">
     <template #body>
-      <input type="text" v-model="newLibraryItemName" placeholder="Name" />
-      <select v-model="selectedFolder">
-        <option :value="null">(Root folder)</option>
-        <option :value="'new'">(Root folder): New folder</option>
-        <option v-for="folder in foldersForSelectInput" :value="folder.position">
-          {{ folder.name }}
-        </option>
-      </select>
-      <input type="text" v-model="newFolderName" placeholder="New folder name" v-if="selectedFolder && selectedFolder.endsWith('new')" />
+      <div class="mb-3">
+        <input type="text" v-model="newLibraryItemName" placeholder="Title" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Folder</label>
+        <select v-model="selectedFolder" class="form-control">
+          <option :value="null">(Root folder)</option>
+          <option :value="'new'">(Root folder): Add new folder</option>
+          <option v-for="folder in foldersForSelectInput" :value="folder.position">
+            {{ folder.name }}
+          </option>
+        </select>
+      </div>
+      <div class="mb-3" v-if="selectedFolder && selectedFolder.endsWith('new')">
+        <input type="text" v-model="newFolderName" placeholder="New folder name" class="form-control" />
+      </div>
     </template>
     <template #footer>
       <button class="btn btn-primary" :disabled="!newLibraryItemName" @click="saveAsToLibrary()">Save</button>
@@ -78,6 +83,8 @@
     type: Number,
     required: true
   })
+
+  const emit = defineEmits(['update:urlLibrary'])
 
   const foldersForSelectInput = computed(() => {
     const extractFolders = (folder, position) => {
@@ -159,21 +166,33 @@
 
     // Indicate that the tab is modifying this new item
     tabs.value[activeTab.value].libraryItemId = newItemId;
+
+    // Manually emit the update
+    emit('update:urlLibrary', urlLibrary.value);
   }
 
   // Save to library
   function saveToLibrary() {
     // Update the url of the library item
     urlLibrary.value.items.find(url => url.id == tabs.value[activeTab.value].libraryItemId).url = tabs.value[activeTab.value].url;
+    // Manually emit the update
+    emit('update:urlLibrary', urlLibrary.value);
   }
 </script>
 
 <style scoped>
+  #tabbed-url-sandbox {
+    padding-top: 10px;
+    padding-right: 10px;
+  }
+
   #tabs-area { 
     display: flex;
+    align-items: center;    
+    gap: 10px;
   }
   #tabs-area .nav-tabs {
-    flex: 1 0 auto;
+    flex: 1 0 0;
   }
   #tabs-area #new-tab {
     flex: 0 0 auto;

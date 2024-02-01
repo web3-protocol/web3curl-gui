@@ -1,58 +1,53 @@
 <template>
-  <div>
-    <div id="name-resolution-header">
-      <button 
-        @click="isExpanded = !isExpanded" 
-        class="btn btn-primary">
-        <font-awesome-icon v-if="isExpanded == false" :icon="['fas', 'chevron-right']" />
-        <font-awesome-icon v-if="isExpanded == true" :icon="['fas', 'chevron-down']" />
-      </button>
+  <UrlElement>
+    <template #header-name>
+      Main contract call: 
+    </template>
 
-      <span>Main contract call: </span>
-      <span v-if="loading && contractReturn.data == null">
-        Loading...
-      </span>
-      <span v-else-if="contractReturn.data != null">
-        {{ formatBytes(contractReturn.data, 64) }}
-      </span>
-    </div>
+    <template #header-value>
 
-    <div id="name-resolution-body" v-show="isExpanded">
+      <Loader :loading="loadingStep == '2' && contractReturn.data == null">
+        <span v-if="contractReturn.data != null">
+          {{ formatBytes(contractReturn.data, 64) }}
+        </span>
+      </Loader>
+    </template>
+
+    <template #body>
       <div class="entry">
         <span>Called contract: </span>
-        <span v-if="loading && contractReturn.data == null">
-          Loading...
-        </span>
-        <span v-else-if="contractReturn.data != null">
-          <ContractAddress :address="parsedUrl.contractAddress" :chainId="parsedUrl.chainId" :chainList="chainList" />
-        </span>
+        <Loader :loading="loadingStep == '2' && contractReturn.data == null">
+          <span v-if="contractReturn.data != null">
+            <ContractAddress :address="parsedUrl.contractAddress" :chainId="parsedUrl.chainId" :chainList="chainList" />
+          </span>
+        </Loader>
       </div>
 
       <div class="entry">
         <span>Smart contract calldata: </span>
-        <span v-if="loading && contractReturn.data == null">
-          Loading...
-        </span>
-        <span v-else-if="contractReturn.data != null">
-          {{ parsedUrl.calldata }} 
-        </span>
+        <Loader :loading="loadingStep == '2' && contractReturn.data == null">
+          <span v-if="contractReturn.data != null">
+            {{ parsedUrl.calldata }} 
+          </span>
+        </Loader>
       </div>
 
       <div class="entry">
         <span>Smart contract result: </span>
-        <span v-if="loading && contractReturn.data == null">
-          Loading...
-        </span>
-        <span v-else-if="contractReturn.data != null">
-          {{ contractReturn.data }}
-        </span>
+        <Loader :loading="loadingStep == '2' && contractReturn.data == null">
+          <span v-if="contractReturn.data != null">
+            {{ contractReturn.data }}
+          </span>
+        </Loader>
       </div>
 
-    </div>
-  </div>
+    </template>
+  </UrlElement>
 </template>
 
 <script setup>
+  import Loader from '../common/Loader.vue';
+  import UrlElement from './UrlElement.vue';
   import ContractAddress from '../common/ContractAddress.vue'
   import { formatBytes as _formatBytes } from '../../common/filters.js'
   import { ref } from 'vue';
@@ -70,9 +65,8 @@
       type: Array,
       required: true
     },
-    loading: {
-      type: Boolean,
-      required: true
+    loadingStep: {
+      type: String
     }
   });
 

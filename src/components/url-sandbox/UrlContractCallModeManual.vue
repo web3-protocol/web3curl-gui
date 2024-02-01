@@ -2,17 +2,17 @@
   <div>
     <div class="entry">
       <span>Calldata: </span>
-      <span v-if="loading && parsedUrl.contractCallMode == null">
-        Loading...
-      </span>
-      <span v-else-if="parsedUrl.contractCallMode != null">
-        {{ parsedUrl.calldata }} (ascii: <code>{{ showBytesAsAscii(parsedUrl.calldata) }}</code>)
-      </span>
+      <Loader :loading="loading && parsedUrl.contractCallMode == null">
+        <span v-if="parsedUrl.contractCallMode != null">
+          {{ parsedUrl.calldata }} (ascii: <code>{{ showBytesAsAscii(parsedUrl.calldata) }}</code>)
+        </span>
+      </Loader>
     </div>
   </div>
 </template>
 
 <script setup>
+  import Loader from '../common/Loader.vue';
   import { showBytesAsAscii as _showBytesAsAscii } from '../../common/filters.js'
   import { ref, computed } from 'vue';
 

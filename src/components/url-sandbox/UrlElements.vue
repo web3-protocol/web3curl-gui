@@ -1,15 +1,24 @@
 <template>
   <div>
+    <div class="element">
+      <UrlNameResolution :parsedUrl="parsedUrl" :chainList="chainList" :loadingStep="loadingStep" />
+    </div>
+
+    <div class="element">
+      <UrlResolveMode :parsedUrl="parsedUrl" :loadingStep="loadingStep" />
+    </div>
+
+    <div class="element">
+      <UrlContractCall v-model:url="url" :parsedUrl="parsedUrl" :loadingStep="loadingStep" />
+    </div>
+
+    <div class="element">
+      <UrlMainCall :parsedUrl="parsedUrl" :contractReturn="contractReturn" :chainList="chainList" :loadingStep="loadingStep" />
+    </div>
     
-    <UrlNameResolution :parsedUrl="parsedUrl" :chainList="chainList" :loading="loading" />
-
-    <UrlResolveMode :parsedUrl="parsedUrl" :loading="loading" />
-
-    <UrlContractCall v-model:url="url" :parsedUrl="parsedUrl" :loading="loading" />
-
-    <UrlMainCall :parsedUrl="parsedUrl" :contractReturn="contractReturn" :chainList="chainList" :loading="loading" />
-    
-    <UrlContractReturnProcessing :fetchedUrl="fetchedUrl" :loading="loading" />
+    <div class="element">
+      <UrlContractReturnProcessing :fetchedUrl="fetchedUrl" :loadingStep="loadingStep" />
+    </div>
   </div>
 </template>
 
@@ -43,9 +52,8 @@
       type: Array,
       required: true
     },
-    loading: {
-      type: Boolean,
-      required: true
+    loadingStep: {
+      type: String
     }
   });
 
@@ -55,3 +63,9 @@
   //   // Perform any necessary actions when the URL changes
   // });
 </script>
+
+<style scoped>
+  .element {
+    margin-bottom: 10px;
+  }
+</style>

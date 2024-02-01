@@ -1,53 +1,51 @@
 <template>
-  <div>
-    <div id="name-resolution-header">
-      <button 
-        @click="isExpanded = !isExpanded" 
-        class="btn btn-primary">
-        <font-awesome-icon v-if="isExpanded == false" :icon="['fas', 'chevron-right']" />
-        <font-awesome-icon v-if="isExpanded == true" :icon="['fas', 'chevron-down']" />
-      </button>
+  <UrlElement>
+    <template #header-name>
+      Smart contract call: 
+    </template>
 
-      <span>Smart contract call: </span>
-      <span v-if="loading && parsedUrl.contractCallMode == null">
-        Loading...
-      </span>
-      <span v-else-if="parsedUrl.contractCallMode != null">
-        <span v-if="parsedUrl.contractCallMode == 'calldata'">
-          Calldata: {{ formatBytes(parsedUrl.calldata, 64) }}
-        </span>
-        <span v-else-if="parsedUrl.contractCallMode == 'method'">
-          Method: {{ parsedUrl.methodName }}(<span v-for="(methodArgType, index) in props.parsedUrl.methodArgs" :key="index">
-              <em>{{ methodArgType.type }}:</em> {{ parsedUrl.methodArgValues[index] }}{{ index !== props.parsedUrl.methodArgs.length - 1 ? ', ' : '' }}
-            </span>)
-        </span>
-      </span>
-    </div>
+    <template #header-value>
 
-    <div id="name-resolution-body" v-show="isExpanded">
+      <Loader :loading="loadingStep == '1.4' && parsedUrl.contractCallMode == null">
+        <span v-if="parsedUrl.contractCallMode != null">
+          <span v-if="parsedUrl.contractCallMode == 'calldata'">
+            Calldata: {{ formatBytes(parsedUrl.calldata, 64) }}
+          </span>
+          <span v-else-if="parsedUrl.contractCallMode == 'method'">
+            Method: {{ parsedUrl.methodName }}(<span v-for="(methodArgType, index) in props.parsedUrl.methodArgs" :key="index">
+                <em>{{ methodArgType.type }}:</em> {{ parsedUrl.methodArgValues[index] }}{{ index !== props.parsedUrl.methodArgs.length - 1 ? ', ' : '' }}
+              </span>)
+          </span>
+        </span>
+      </Loader>
+    </template>
+
+    <template #body>
       
       <UrlContractCallModeManual 
         v-if="parsedUrl.mode == 'manual'" 
         :parsedUrl="parsedUrl" 
-        :loading="loading" />
+        :loading="loadingStep == '1.4'" />
       
       <UrlContractCallModeAuto 
         v-if="parsedUrl.mode == 'auto'" 
         v-model:url="url"
         :parsedUrl="parsedUrl" 
-        :loading="loading" />
+        :loading="loadingStep == '1.4'" />
 
         <UrlContractCallModeResourceRequest
         v-if="parsedUrl.mode == 'resourceRequest'" 
         v-model:url="url"
         :parsedUrl="parsedUrl" 
-        :loading="loading" />
+        :loading="loadingStep == '1.4'" />
 
-    </div>
-  </div>
+      </template>
+  </UrlElement>
 </template>
 
 <script setup>
+  import Loader from '../common/Loader.vue';
+  import UrlElement from './UrlElement.vue';
   import UrlContractCallModeAuto from './UrlContractCallModeAuto.vue';
   import UrlContractCallModeManual from './UrlContractCallModeManual.vue';
   import UrlContractCallModeResourceRequest from './UrlContractCallModeResourceRequest.vue';
@@ -64,9 +62,8 @@
       type: Object,
       required: true
     },
-    loading: {
-      type: Boolean,
-      required: true
+    loadingStep: {
+      type: String
     }
   });
 

@@ -1,25 +1,27 @@
 <template>
-  <div>
+  <div class="library-item">
     <div @click="$emit('clicked')">
-      {{ libraryItem.name }}
-      {{ libraryItem.url }}
+      <div class="name">
+        <div class="btn-group" role="group" @click.stop>
+          <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" @click.prevent="showRenameModal">Rename</a></li>
+            <li><a class="dropdown-item" href="#" @click.prevent="showDeleteModal">Delete</a></li>
+          </ul>
+        </div>
+
+        {{ libraryItem.name }}
+      </div>
+      <div class="url">
+        {{ libraryItem.url }}
+      </div>
     </div>
 
-    <button 
-      class="btn btn-secondary"
-      @click="showRenameModal">
-      Rename
-    </button>
-
-    <button 
-      class="btn btn-secondary"
-      @click="showDeleteModal">
-      Delete
-    </button>
 
     <Modal title="Rename library item" ref="renameModal">
       <template #body>
-        <input type="text" v-model="editedName" />
+        <input type="text" v-model="editedName" style="width: 100%;" />
       </template>
       <template #footer>
         <button class="btn btn-primary" @click="saveRenamingChanges()">Save</button>
@@ -81,5 +83,30 @@
 </script>
 
 <style scoped>
-/* Add your component styles here */
+  .library-item {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .library-item .name {
+    font-weight: bold;
+    margin-bottom: 2px;
+  }
+
+  .library-item .url {
+    font-size: 12px;
+    word-break: break-all;
+  }
+
+  .library-item .name .btn-group {
+    display: none;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    background-color: var(--bs-body-bg);
+  }
+
+  .library-item:hover .name .btn-group{
+    display: block;
+  }
 </style>

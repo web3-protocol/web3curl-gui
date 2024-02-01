@@ -1,23 +1,19 @@
 <template>
-  <div>
-    <div id="name-resolution-header">
-      <button 
-        @click="isExpanded = !isExpanded" 
-        class="btn btn-primary">
-        <font-awesome-icon v-if="isExpanded == false" :icon="['fas', 'chevron-right']" />
-        <font-awesome-icon v-if="isExpanded == true" :icon="['fas', 'chevron-down']" />
-      </button>
+  <UrlElement>
+    <template #header-name>
+      Smart contract return processing: 
+    </template>
 
-      <span>Smart contract return processing: </span>
-      <span v-if="loading && fetchedUrl.output == null">
-        Loading...
-      </span>
-      <span v-else-if="fetchedUrl.output != null">
-        {{ fetchedUrl.parsedUrl.contractReturnProcessing }}
-      </span>
-    </div>
+    <template #header-value>
 
-    <div id="name-resolution-body" v-show="isExpanded">
+      <Loader :loading="loadingStep == '3' && fetchedUrl.output == null">
+        <span v-if="fetchedUrl.output != null">
+          {{ fetchedUrl.parsedUrl.contractReturnProcessing }}
+        </span>
+      </Loader>
+    </template>
+
+    <template #body>
       <div class="entry">
         <span v-if="fetchedUrl.output != null">
           
@@ -36,10 +32,13 @@
 
         </span>
       </div>
-    </div>
-  </div>
+    </template>
+  </UrlElement>
 </template>
+
 <script setup>
+  import Loader from '../common/Loader.vue';
+  import UrlElement from './UrlElement.vue';
   import { ref } from 'vue';
 
   const props = defineProps({
@@ -47,9 +46,8 @@
       type: Object,
       required: true
     },
-    loading: {
-      type: Boolean,
-      required: true
+    loadingStep: {
+      type: String
     }
   });
 

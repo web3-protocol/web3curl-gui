@@ -19,9 +19,15 @@
     required: true
   })
 
-  const emit = defineEmits(['libraryItemClicked', 'libraryItemRenamed', 'libraryItemDeleted'])
+  const emit = defineEmits(['libraryItemClicked', 'libraryItemRenamed', 'libraryItemDeleted', 'update:urlLibrary'])
 
   function folderUpdated() {
     emit('update:urlLibrary', urlLibrary.value);
   }
 </script>
+
+<style scoped>
+  #url-library {
+    margin: 10px;
+  }
+</style>

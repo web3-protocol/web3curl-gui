@@ -1,58 +1,50 @@
 <template>
-  <div>
-    <div id="name-resolution-header">
-      <button 
-        @click="isExpanded = !isExpanded" 
-        class="btn btn-primary">
-        <font-awesome-icon v-if="isExpanded == false" :icon="['fas', 'chevron-right']" />
-        <font-awesome-icon v-if="isExpanded == true" :icon="['fas', 'chevron-down']" />
-      </button>
+  <UrlElement>
+    <template #header-name>
+      Resolve mode: 
+    </template>
 
-      <span>Resolve mode: </span>
-      <span v-if="loading && parsedUrl.mode == null">
-        Loading...
-      </span>
-      <span v-else-if="parsedUrl.mode != null">
+    <template #header-value>
+
+      <Loader :loading="loadingStep == '1.3' && parsedUrl.mode == null">
         {{ parsedUrl.mode }}
-      </span>
-    </div>
+      </Loader>
 
-    <div id="name-resolution-body" v-show="isExpanded">
+    </template>
+
+    <template #body>
       <div class="entry">
         <span>Resolve mode determination calldata: </span>
-        <span v-if="loading && parsedUrl.mode == null">
-          Loading...
-        </span>
-        <span v-else-if="parsedUrl.mode != null">
-          {{ parsedUrl.modeDetermination.calldata }}
-        </span>
+        <Loader :loading="loadingStep == '1.3' && parsedUrl.mode == null">
+          <span v-if="parsedUrl.mode != null">
+            {{ parsedUrl.modeDetermination.calldata }}
+          </span>
+        </Loader>
       </div>
 
       <div class="entry">
         <span>Resolve mode determination return: </span>
-        <span v-if="loading && parsedUrl.mode == null">
-          Loading...
-        </span>
-        <span v-else-if="parsedUrl.mode != null">
-          {{ parsedUrl.modeDetermination.decodedResult }} (ascii: <code>{{ showBytesAsAscii(parsedUrl.modeDetermination.decodedResult) }}</code>)
-        </span>
+        <Loader :loading="loadingStep == '1.3' && parsedUrl.mode == null">
+          <span v-if="parsedUrl.mode != null">
+            {{ parsedUrl.modeDetermination.decodedResult }} (ascii: <code>{{ showBytesAsAscii(parsedUrl.modeDetermination.decodedResult) }}</code>)
+          </span>
+        </Loader>
       </div>
 
       <div class="entry">
         <span>Result: </span>
-        <span v-if="loading && parsedUrl.mode == null">
-          Loading...
-        </span>
-        <span v-else-if="parsedUrl.mode != null">
+        <Loader :loading="loadingStep == '1.3' && parsedUrl.mode == null">
           {{ parsedUrl.mode }}
-        </span>
+        </Loader>
       </div>
 
-    </div>
-  </div>
+    </template>
+  </UrlElement>
 </template>
 
 <script setup>
+  import UrlElement from './UrlElement.vue';
+  import Loader from '../common/Loader.vue';
   import { showBytesAsAscii as _showBytesAsAscii } from '../../common/filters.js'
   import { ref, computed } from 'vue';
 
@@ -61,9 +53,8 @@
       type: Object,
       required: true
     },
-    loading: {
-      type: Boolean,
-      required: true
+    loadingStep: {
+      type: String
     }
   });
 
