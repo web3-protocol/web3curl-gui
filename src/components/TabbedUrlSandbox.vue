@@ -6,33 +6,47 @@
           v-for="(tab, index) in tabs"
           @click="activeTab = index">
           <a :class="{ 'nav-link': true, active: activeTab === index }" href="#">
-            {{ tab.libraryItemId ? urlLibrary.items.find(url => url.id == tab.libraryItemId).name : 'New Tab' }}
+            <span v-if="tab.libraryItemId">
+              {{ urlLibrary.items.find(url => url.id == tab.libraryItemId).name }}
+              <span v-if="urlLibrary.items.find(url => url.id == tab.libraryItemId).url != tab.url">
+                *
+              </span>
+            </span>
+            <span v-else>New Tab</span>
 
             <button
               v-if="index == activeTab"
-              @click="tabs.splice(index, 1)"
-              class="btn btn-outline-secondary btn-sm">
+              @click="closeTab(index)"
+              class="btn btn-outline-secondary btn-sm btn-close-tab">
               <font-awesome-icon :icon="['fas', 'xmark']" />
             </button>
           </a>
         </li>
       </ul>
       <div id="new-tab">
-        <button class="btn btn-outline-secondary" @click="tabs.push({})">+</button>
+        <button class="btn btn-outline-secondary" @click="addNewTab()">+</button>
       </div>
     </div>
 
     <div class="tab-content" v-for="(tab, index) in tabs">
       <UrlSandbox 
         v-show="index == activeTab" 
-        v-model:url="tab.url" >
+        v-model:url="tab.url"
+        @update:url="emit('update:tabs', tabs)">
         <template #urlButtons>
           
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             </button>
             <ul class="dropdown-menu">
-              <li><a v-if="tab.libraryItemId != null" class="dropdown-item" @click.prevent="saveToLibrary()" href="#">Save</a></li>
+              <li>
+                <a v-if="tab.libraryItemId != null" 
+                   :class="{ 'dropdown-item': true, disabled: urlLibrary.items.find(url => url.id == tab.libraryItemId).url == tab.url }" 
+                   @click.prevent="saveToLibrary()" 
+                   href="#">
+                  Save
+                </a>
+              </li>
               <li><a class="dropdown-item" @click.prevent="showSaveAsModal" href="#">Save as</a></li>
             </ul>
           </div>
@@ -84,8 +98,29 @@
     required: true
   })
 
-  const emit = defineEmits(['update:urlLibrary'])
+  const emit = defineEmits(['update:urlLibrary', 'update:tabs'])
 
+  function addNewTab() {
+    tabs.value.push({url:''});
+    emit('update:tabs', tabs)
+  }
+  
+  function closeTab(index) {
+    tabs.value.splice(index, 1); 
+    emit('update:tabs', tabs)
+
+    // Does not work, need to investigate later
+    if(index > tabs.value.length - 1) {
+      activeTab.value = tabs.value.length - 1
+    }
+  }
+  
+
+  //
+  // Save as modal
+  //
+
+  // Folder list for folder selection input
   const foldersForSelectInput = computed(() => {
     const extractFolders = (folder, position) => {
       const result = [];
@@ -108,9 +143,8 @@
 
     return urlLibrary.value.tree.folders.flatMap((folder, index) => extractFolders(folder, `${index}`));
   });
-  
-  
-  // Save as modal
+
+  // Modal
   const saveAsModal = ref(null);
   const newLibraryItemName = ref(null);
   const selectedFolder = ref(null);
@@ -171,6 +205,7 @@
     emit('update:urlLibrary', urlLibrary.value);
   }
 
+
   // Save to library
   function saveToLibrary() {
     // Update the url of the library item
@@ -184,6 +219,10 @@
   #tabbed-url-sandbox {
     padding-top: 10px;
     padding-right: 10px;
+  }
+
+  .btn-close-tab {
+    margin-left: 5px;
   }
 
   #tabs-area { 

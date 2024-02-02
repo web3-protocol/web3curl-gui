@@ -10,18 +10,18 @@ function formatBytes(hexBytes, showReducedFormMaxSize) {
   return hexBytes;
 }
 
-function showBytesAsAscii(hexBytes) {
-  let asciiString = '';
+function showBytesAsUTF8(hexBytes) {
+  let utf8String = '';
 
   if(hexBytes == null || hexBytes == "") {
       hexBytes = "0x"
   }
   for (let i = 0; i < hexBytes.length; i += 2) {
     const hexCode = parseInt(hexBytes.substr(i, 2), 16);
-    asciiString += String.fromCharCode(hexCode);
+    utf8String += String.fromCharCode(hexCode);
   }
 
-  return asciiString;
+  return utf8String;
 }
 
-export { formatBytes, showBytesAsAscii }
+export { formatBytes, showBytesAsUTF8 }

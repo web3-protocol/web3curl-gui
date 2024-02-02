@@ -33,6 +33,8 @@
   }
 
   .element-body {
-    padding-left: 20px;
+    padding-left: 54px;
+    padding-top: 10px;
+    padding-bottom: 15px;
   }
 </style>

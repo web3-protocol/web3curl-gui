@@ -7,34 +7,28 @@
     <template #header-value>
 
       <Loader :loading="loadingStep == '1.3' && parsedUrl.mode == null">
-        {{ parsedUrl.mode }}
+        <code>{{ parsedUrl.mode }}</code>
       </Loader>
 
     </template>
 
     <template #body>
+
       <div class="entry">
-        <span>Resolve mode determination calldata: </span>
-        <Loader :loading="loadingStep == '1.3' && parsedUrl.mode == null">
-          <span v-if="parsedUrl.mode != null">
-            {{ parsedUrl.modeDetermination.calldata }}
-          </span>
-        </Loader>
+        <span class="title">Smart contract call: </span>
+        <div class="smart-contract-call">
+          <ContractCall
+            :smartContractCall="parsedUrl.modeDetermination"
+            :loading="loadingStep == '1.3' && parsedUrl.mode == null"
+            :showReturnUtf8Preview="true"
+            :chainList />
+        </div>
       </div>
 
       <div class="entry">
-        <span>Resolve mode determination return: </span>
+        <span class="title">Result: </span>
         <Loader :loading="loadingStep == '1.3' && parsedUrl.mode == null">
-          <span v-if="parsedUrl.mode != null">
-            {{ parsedUrl.modeDetermination.decodedResult }} (ascii: <code>{{ showBytesAsAscii(parsedUrl.modeDetermination.decodedResult) }}</code>)
-          </span>
-        </Loader>
-      </div>
-
-      <div class="entry">
-        <span>Result: </span>
-        <Loader :loading="loadingStep == '1.3' && parsedUrl.mode == null">
-          {{ parsedUrl.mode }}
+          <code>{{ parsedUrl.mode }}</code>
         </Loader>
       </div>
 
@@ -44,8 +38,9 @@
 
 <script setup>
   import UrlElement from './UrlElement.vue';
+  import ContractCall from '../common/ContractCall.vue';
   import Loader from '../common/Loader.vue';
-  import { showBytesAsAscii as _showBytesAsAscii } from '../../common/filters.js'
+  import { showBytesAsUTF8 as _showBytesAsUTF8 } from '../../common/filters.js'
   import { ref, computed } from 'vue';
 
   const props = defineProps({
@@ -55,10 +50,28 @@
     },
     loadingStep: {
       type: String
-    }
+    },
+    chainList: {
+      type: Array,
+      required: true
+    },
   });
 
   const isExpanded = ref(false);
 
-  const showBytesAsAscii = _showBytesAsAscii;
+  const showBytesAsUTF8 = _showBytesAsUTF8;
 </script>
+
+<style scoped>
+  .entry {
+    margin-bottom: 5px;
+  }
+
+  .entry .title {
+    font-weight: bold;
+  }
+
+  .smart-contract-call {
+    padding-left: 20px;
+  }
+</style>

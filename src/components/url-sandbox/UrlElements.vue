@@ -5,19 +5,19 @@
     </div>
 
     <div class="element">
-      <UrlResolveMode :parsedUrl="parsedUrl" :loadingStep="loadingStep" />
+      <UrlResolveMode :parsedUrl="parsedUrl" :loadingStep="loadingStep" :chainList />
     </div>
 
     <div class="element">
-      <UrlContractCall v-model:url="url" :parsedUrl="parsedUrl" :loadingStep="loadingStep" />
+      <UrlMainContractCall v-model:url="url" :parsedUrl="parsedUrl" :loadingStep="loadingStep" />
     </div>
 
     <div class="element">
-      <UrlMainCall :parsedUrl="parsedUrl" :contractReturn="contractReturn" :chainList="chainList" :loadingStep="loadingStep" />
+      <UrlMainContractCallExecution :parsedUrl="parsedUrl" :contractReturn="contractReturn" :chainList="chainList" :loadingStep="loadingStep" />
     </div>
     
     <div class="element">
-      <UrlContractReturnProcessing :fetchedUrl="fetchedUrl" :loadingStep="loadingStep" />
+      <UrlMainContractReturnProcessing :fetchedUrl="fetchedUrl" :loadingStep="loadingStep" />
     </div>
   </div>
 </template>
@@ -25,9 +25,9 @@
 <script setup>
   import UrlNameResolution from './UrlNameResolution.vue';
   import UrlResolveMode from './UrlResolveMode.vue';
-  import UrlContractCall from './UrlContractCall.vue';
-  import UrlMainCall from './UrlMainCall.vue';
-  import UrlContractReturnProcessing from './UrlContractReturnProcessing.vue';
+  import UrlMainContractCall from './UrlMainContractCall.vue';
+  import UrlMainContractCallExecution from './UrlMainContractCallExecution.vue';
+  import UrlMainContractReturnProcessing from './UrlMainContractReturnProcessing.vue';
   import { ref, watch } from 'vue';
 
   const url = defineModel('url', {

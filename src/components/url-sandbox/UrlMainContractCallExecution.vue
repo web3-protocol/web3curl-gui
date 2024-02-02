@@ -1,21 +1,22 @@
 <template>
   <UrlElement>
     <template #header-name>
-      Main contract call: 
+      Main smart contract call execution: 
     </template>
 
     <template #header-value>
 
       <Loader :loading="loadingStep == '2' && contractReturn.data == null">
         <span v-if="contractReturn.data != null">
-          {{ formatBytes(contractReturn.data, 64) }}
+          <Bytes :data="contractReturn.data" :maxSize="64" />
         </span>
       </Loader>
     </template>
 
     <template #body>
+      
       <div class="entry">
-        <span>Called contract: </span>
+        <span class="title">Contract called: </span>
         <Loader :loading="loadingStep == '2' && contractReturn.data == null">
           <span v-if="contractReturn.data != null">
             <ContractAddress :address="parsedUrl.contractAddress" :chainId="parsedUrl.chainId" :chainList="chainList" />
@@ -24,19 +25,28 @@
       </div>
 
       <div class="entry">
-        <span>Smart contract calldata: </span>
+        <span class="title">RPC gateway: </span>
         <Loader :loading="loadingStep == '2' && contractReturn.data == null">
           <span v-if="contractReturn.data != null">
-            {{ parsedUrl.calldata }} 
+            {{ contractReturn.rpcUrls[contractReturn.rpcUrlUsedIndex] }}
           </span>
         </Loader>
       </div>
 
       <div class="entry">
-        <span>Smart contract result: </span>
+        <span class="title">Calldata: </span>
         <Loader :loading="loadingStep == '2' && contractReturn.data == null">
           <span v-if="contractReturn.data != null">
-            {{ contractReturn.data }}
+            <Bytes :data=parsedUrl.calldata />
+          </span>
+        </Loader>
+      </div>
+
+      <div class="entry">
+        <span class="title">Smart contract return: </span>
+        <Loader :loading="loadingStep == '2' && contractReturn.data == null">
+          <span v-if="contractReturn.data != null">
+            <Bytes :data="contractReturn.data" :maxSize=256 />
           </span>
         </Loader>
       </div>
@@ -47,9 +57,9 @@
 
 <script setup>
   import Loader from '../common/Loader.vue';
+  import Bytes from '../common/Bytes.vue';
   import UrlElement from './UrlElement.vue';
   import ContractAddress from '../common/ContractAddress.vue'
-  import { formatBytes as _formatBytes } from '../../common/filters.js'
   import { ref } from 'vue';
 
   const props = defineProps({
@@ -71,6 +81,10 @@
   });
 
   const isExpanded = ref(false);
-
-  const formatBytes = _formatBytes;
 </script>
+
+<style scoped>
+  .entry .title {
+    font-weight: bold;
+  }
+</style>

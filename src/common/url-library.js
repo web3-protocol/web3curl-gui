@@ -1,7 +1,7 @@
 function loadLibraryFromLocalStorage() {
-  const library = localStorage.getItem('library');
-  if (library) {
-    return JSON.parse(library).library;
+  const storedLibrary = localStorage.getItem('library');
+  if (storedLibrary) {
+    return JSON.parse(storedLibrary).library;
   } else {
     return getDefaultLibrary();
   }

@@ -4,7 +4,7 @@
       <span>Calldata: </span>
       <Loader :loading="loading && parsedUrl.contractCallMode == null">
         <span v-if="parsedUrl.contractCallMode != null">
-          {{ parsedUrl.calldata }} (ascii: <code>{{ showBytesAsAscii(parsedUrl.calldata) }}</code>)
+          <Bytes :data="parsedUrl.calldata" /> (UTF-8: <code>{{ showBytesAsUTF8(parsedUrl.calldata) }}</code>)
         </span>
       </Loader>
     </div>
@@ -13,7 +13,8 @@
 
 <script setup>
   import Loader from '../common/Loader.vue';
-  import { showBytesAsAscii as _showBytesAsAscii } from '../../common/filters.js'
+  import Bytes from '../common/Bytes.vue';
+  import { showBytesAsUTF8 as _showBytesAsUTF8 } from '../../common/filters.js'
   import { ref, computed } from 'vue';
 
   const props = defineProps({
@@ -27,6 +28,6 @@
     }
   });
 
-  const showBytesAsAscii = _showBytesAsAscii;
+  const showBytesAsUTF8 = _showBytesAsUTF8;
 
 </script>

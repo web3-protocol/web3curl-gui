@@ -14,7 +14,9 @@
         v-model:tabs="urlTabs" 
         v-model:activeTab="activeTab"
         v-model:urlLibrary="urlLibrary"
-        @update:urlLibrary="libraryUpdated" />
+        @update:urlLibrary="libraryUpdated"
+        @update:tabs="tabsUpdated"
+        @update:activeTab="tabsUpdated" />
     </div>
   </div>
 </template>
@@ -23,37 +25,13 @@
   import UrlLibrary from './components/url-library/UrlLibrary.vue'
   import TabbedUrlSandbox from './components/TabbedUrlSandbox.vue'
   import { loadLibraryFromLocalStorage, saveLibraryToLocalStorage } from './common/url-library.js'
-  import { ref } from 'vue'
+  import { loadTabsFromLocalStorage, saveTabsToLocalStorage } from './common/tabs';
+  import { ref, watch } from 'vue'
 
   const urlLibrary = ref(loadLibraryFromLocalStorage())
-
-  const tabsFromLocalStorage = [
-    {
-      libraryItemId: 1
-    },
-    {
-      libraryItemId: null,
-      url: 'web3://xaaaa'
-    },
-    {
-      libraryItemId: 2
-    },
-  ]
-  // For each tab linked to a libraryItemId, inject its URL
-  tabsFromLocalStorage.forEach(tab => {
-    if(tab.libraryItemId) {
-      const libraryItem = urlLibrary.value.items.find(item => item.id == tab.libraryItemId);
-      if(libraryItem) {
-        tab.url = libraryItem.url;
-      }
-      // Library item not found: remove libraryItemId
-      else {
-        tab.libraryItemId = null;
-      }
-    }
-  })
-  const urlTabs = ref(tabsFromLocalStorage)
-  const activeTab = ref(0)
+  const {tabs: initialTabs, activeTab: initialActiveTab} = loadTabsFromLocalStorage(urlLibrary.value)
+  const urlTabs = ref(initialTabs)
+  const activeTab = ref(initialActiveTab)
 
   function libraryItemClicked(libraryItemId) {
     console.log("Library item clicked", libraryItemId)
@@ -71,6 +49,9 @@
     else {
       activeTab.value = tabIndex;
     }
+
+    // Indicate that the tabs were updated
+    tabsUpdated();
   }
 
   function libraryItemRenamed(libraryItemId) {
@@ -92,6 +73,12 @@
     console.log("Library updated: Saved to local storage")
     saveLibraryToLocalStorage(urlLibrary.value)
   }  
+
+  // On tabs update : update to local storage
+  function tabsUpdated() {
+    console.log("Tabs updated: Saved to local storage")
+    saveTabsToLocalStorage(urlTabs.value, activeTab.value)
+  }
 
 </script>
 

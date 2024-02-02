@@ -1,11 +1,10 @@
 <template>
   <div class="url-tree">
     <ul class="list-group">
-      <li v-for="(subfolder, subfolderIndex) in folder.folders" class="list-group-item subfolder">
+      <li v-for="(subfolder, subfolderIndex) in folder.folders" class="list-group-item subfolder" @click.stop="toggleChildren(subfolderIndex)">
 
         <div class="subfolder-title-area">
           <button 
-            @click="toggleChildren(subfolderIndex)" 
             class="btn btn-secondary">
             <font-awesome-icon v-if="subfolderExpansion[subfolderIndex] == false || subfolderExpansion[subfolderIndex] == undefined" :icon="['fas', 'chevron-right']" />
             <font-awesome-icon v-if="subfolderExpansion[subfolderIndex] == true" :icon="['fas', 'chevron-down']" />
@@ -99,6 +98,7 @@
   .subfolder {
     padding-top: 10px;
     padding-bottom: 10px;
+    cursor: pointer;
   }
 
   .subfolder-title-area {

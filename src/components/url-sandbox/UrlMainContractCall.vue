@@ -1,7 +1,7 @@
 <template>
   <UrlElement>
     <template #header-name>
-      Smart contract call: 
+      Main smart contract call: 
     </template>
 
     <template #header-value>
@@ -9,12 +9,13 @@
       <Loader :loading="loadingStep == '1.4' && parsedUrl.contractCallMode == null">
         <span v-if="parsedUrl.contractCallMode != null">
           <span v-if="parsedUrl.contractCallMode == 'calldata'">
-            Calldata: {{ formatBytes(parsedUrl.calldata, 64) }}
+            Calldata: <Bytes :data="parsedUrl.calldata" :maxSize="64" />
           </span>
           <span v-else-if="parsedUrl.contractCallMode == 'method'">
-            Method: {{ parsedUrl.methodName }}(<span v-for="(methodArgType, index) in props.parsedUrl.methodArgs" :key="index">
+            Method: <code>{{ parsedUrl.methodName }}(<span v-for="(methodArgType, index) in props.parsedUrl.methodArgs" :key="index">
                 <em>{{ methodArgType.type }}:</em> {{ parsedUrl.methodArgValues[index] }}{{ index !== props.parsedUrl.methodArgs.length - 1 ? ', ' : '' }}
               </span>)
+            </code>
           </span>
         </span>
       </Loader>
@@ -22,18 +23,18 @@
 
     <template #body>
       
-      <UrlContractCallModeManual 
+      <UrlMainContractCallModeManual 
         v-if="parsedUrl.mode == 'manual'" 
         :parsedUrl="parsedUrl" 
         :loading="loadingStep == '1.4'" />
       
-      <UrlContractCallModeAuto 
+      <UrlMainContractCallModeAuto 
         v-if="parsedUrl.mode == 'auto'" 
         v-model:url="url"
         :parsedUrl="parsedUrl" 
         :loading="loadingStep == '1.4'" />
 
-        <UrlContractCallModeResourceRequest
+        <UrlMainContractCallModeResourceRequest
         v-if="parsedUrl.mode == 'resourceRequest'" 
         v-model:url="url"
         :parsedUrl="parsedUrl" 
@@ -45,11 +46,11 @@
 
 <script setup>
   import Loader from '../common/Loader.vue';
+  import Bytes from '../common/Bytes.vue';
   import UrlElement from './UrlElement.vue';
-  import UrlContractCallModeAuto from './UrlContractCallModeAuto.vue';
-  import UrlContractCallModeManual from './UrlContractCallModeManual.vue';
-  import UrlContractCallModeResourceRequest from './UrlContractCallModeResourceRequest.vue';
-  import { formatBytes as _formatBytes } from '../../common/filters.js'
+  import UrlMainContractCallModeAuto from './UrlMainContractCallModeAuto.vue';
+  import UrlMainContractCallModeManual from './UrlMainContractCallModeManual.vue';
+  import UrlMainContractCallModeResourceRequest from './UrlMainContractCallModeResourceRequest.vue';
   import { ref, computed } from 'vue';
 
   const url = defineModel('url', {
@@ -69,7 +70,6 @@
 
   const isExpanded = ref(false);
 
-  const formatBytes = _formatBytes
 
 
 </script>
