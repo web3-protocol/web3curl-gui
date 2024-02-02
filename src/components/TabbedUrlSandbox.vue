@@ -102,12 +102,12 @@
 
   function addNewTab() {
     tabs.value.push({url:''});
-    emit('update:tabs', tabs)
+    emit('update:tabs', tabs.value)
   }
   
   function closeTab(index) {
     tabs.value.splice(index, 1); 
-    emit('update:tabs', tabs)
+    emit('update:tabs', tabs.value)
 
     // Does not work, need to investigate later
     if(index > tabs.value.length - 1) {

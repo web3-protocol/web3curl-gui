@@ -26,7 +26,7 @@
   import TabbedUrlSandbox from './components/TabbedUrlSandbox.vue'
   import { loadLibraryFromLocalStorage, saveLibraryToLocalStorage } from './common/url-library.js'
   import { loadTabsFromLocalStorage, saveTabsToLocalStorage } from './common/tabs';
-  import { ref } from 'vue'
+  import { ref, toRaw } from 'vue'
 
   const urlLibrary = ref(loadLibraryFromLocalStorage())
   const {tabs: initialTabs, activeTab: initialActiveTab} = loadTabsFromLocalStorage(urlLibrary.value)
@@ -71,13 +71,13 @@
   // On library update : update to local storage
   function libraryUpdated() {
     console.log("Library updated: Saved to local storage")
-    saveLibraryToLocalStorage(urlLibrary.value)
+    saveLibraryToLocalStorage(toRaw(urlLibrary.value))
   }  
 
   // On tabs update : update to local storage
   function tabsUpdated() {
     console.log("Tabs updated: Saved to local storage")
-    saveTabsToLocalStorage(urlTabs.value, activeTab.value)
+    saveTabsToLocalStorage(toRaw(urlTabs.value), activeTab.value)
   }
 
 </script>

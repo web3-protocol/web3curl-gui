@@ -1,6 +1,6 @@
 <template>
   <div class="library-item">
-    <div @click="$emit('clicked')">
+    <div @click.stop="$emit('clicked')">
       <div class="name">
         <div class="btn-group" role="group" @click.stop>
           <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -19,7 +19,7 @@
     </div>
 
 
-    <Modal title="Rename library item" ref="renameModal">
+    <Modal title="Rename library item" ref="renameModal" @click.stop>
       <template #body>
         <input type="text" v-model="editedName" style="width: 100%;" />
       </template>
@@ -28,7 +28,7 @@
       </template>
     </Modal>
 
-    <Modal title="Delete library item" ref="deleteModal">
+    <Modal title="Delete library item" ref="deleteModal" @click.stop>
       <template #body>
         Are you sure?
       </template>
