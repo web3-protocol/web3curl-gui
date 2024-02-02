@@ -51,7 +51,7 @@
   import UrlMainContractCallModeAuto from './UrlMainContractCallModeAuto.vue';
   import UrlMainContractCallModeManual from './UrlMainContractCallModeManual.vue';
   import UrlMainContractCallModeResourceRequest from './UrlMainContractCallModeResourceRequest.vue';
-  import { ref, computed } from 'vue';
+  import { ref } from 'vue';
 
   const url = defineModel('url', {
     type: String,

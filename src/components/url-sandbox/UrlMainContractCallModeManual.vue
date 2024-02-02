@@ -15,7 +15,6 @@
   import Loader from '../common/Loader.vue';
   import Bytes from '../common/Bytes.vue';
   import { showBytesAsUTF8 as _showBytesAsUTF8 } from '../../common/filters.js'
-  import { ref, computed } from 'vue';
 
   const props = defineProps({
     parsedUrl: {

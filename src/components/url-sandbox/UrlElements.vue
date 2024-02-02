@@ -1,23 +1,23 @@
 <template>
   <div>
     <div class="element">
-      <UrlNameResolution :parsedUrl="parsedUrl" :chainList="chainList" :loadingStep="loadingStep" />
+      <UrlNameResolution :parsedUrl :chainList :loadingStep />
     </div>
 
     <div class="element">
-      <UrlResolveMode :parsedUrl="parsedUrl" :loadingStep="loadingStep" :chainList />
+      <UrlResolveMode :parsedUrl :loadingStep :chainList />
     </div>
 
     <div class="element">
-      <UrlMainContractCall v-model:url="url" :parsedUrl="parsedUrl" :loadingStep="loadingStep" />
+      <UrlMainContractCall v-model:url="url" :parsedUrl :loadingStep />
     </div>
 
     <div class="element">
-      <UrlMainContractCallExecution :parsedUrl="parsedUrl" :contractReturn="contractReturn" :chainList="chainList" :loadingStep="loadingStep" />
+      <UrlMainContractCallExecution :parsedUrl :contractReturn :chainList :loadingStep />
     </div>
     
     <div class="element">
-      <UrlMainContractReturnProcessing :fetchedUrl="fetchedUrl" :loadingStep="loadingStep" />
+      <UrlMainContractReturnProcessing :fetchedUrl :loadingStep />
     </div>
   </div>
 </template>
@@ -28,7 +28,6 @@
   import UrlMainContractCall from './UrlMainContractCall.vue';
   import UrlMainContractCallExecution from './UrlMainContractCallExecution.vue';
   import UrlMainContractReturnProcessing from './UrlMainContractReturnProcessing.vue';
-  import { ref, watch } from 'vue';
 
   const url = defineModel('url', {
     type: String,
@@ -57,11 +56,6 @@
     }
   });
 
-
-
-  // watch(url, (newUrl) => {
-  //   // Perform any necessary actions when the URL changes
-  // });
 </script>
 
 <style scoped>

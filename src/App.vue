@@ -26,7 +26,7 @@
   import TabbedUrlSandbox from './components/TabbedUrlSandbox.vue'
   import { loadLibraryFromLocalStorage, saveLibraryToLocalStorage } from './common/url-library.js'
   import { loadTabsFromLocalStorage, saveTabsToLocalStorage } from './common/tabs';
-  import { ref, watch } from 'vue'
+  import { ref } from 'vue'
 
   const urlLibrary = ref(loadLibraryFromLocalStorage())
   const {tabs: initialTabs, activeTab: initialActiveTab} = loadTabsFromLocalStorage(urlLibrary.value)

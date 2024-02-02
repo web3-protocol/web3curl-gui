@@ -28,7 +28,6 @@
 
 <script setup>
   import Loader from '../common/Loader.vue';
-  import { ref, computed } from 'vue';
 
   const url = defineModel('url', {
     type: String,
