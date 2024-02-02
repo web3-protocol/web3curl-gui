@@ -1,7 +1,6 @@
 {
-  "name": "web3curl-gui",
-  "version": "0.0.0",
-  "private": true,
+  "name": "web3protocol-sandbox",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
