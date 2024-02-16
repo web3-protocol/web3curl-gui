@@ -1,6 +1,6 @@
 <template>
   <span>
-    <a v-if="chainId in chainExplorerUrls" :href="chainExplorerUrls[chainId].replace('<address>', address)" target="_blank">
+    <a v-if="chainId in chainExplorerUrls" :href="chainExplorerUrls[chainId].replace('<address>', address)" target="_blank" @click.stop>
       {{ address }}
     </a>
     <span v-else>
@@ -44,3 +44,9 @@
     10: "https://optimistic.etherscan.io/address/<address>#code",
   }
 </script>
+
+<style scoped>
+  a {
+    word-break: break-all;
+  }
+</style>

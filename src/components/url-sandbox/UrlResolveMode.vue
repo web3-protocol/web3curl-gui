@@ -9,7 +9,7 @@
       <Loader :loading="loadingStep == '1.3' && parsedUrl.mode == null">
         <span v-if="parsedUrl.mode">
           <code>{{ parsedUrl.mode }}</code>
-          <sup style="margin-left: 3px"><a :href="getModeHelpUrl(parsedUrl.mode)" target="_blank"><font-awesome-icon :icon="['far', 'circle-question']" /></a></sup>
+          <sup style="margin-left: 3px"><a :href="getModeHelpUrl(parsedUrl.mode)" target="_blank" @click.stop><font-awesome-icon :icon="['far', 'circle-question']" /></a></sup>
         </span>
       </Loader>
 
