@@ -63,7 +63,7 @@
 
   const emit = defineEmits(['libraryItemClicked', 'libraryItemRenamed', 'libraryItemDeleted'])
 
-  const subfolderExpansion = ref({});
+  const subfolderExpansion = ref({0: true});
 
   function toggleChildren(subfolderIndex) {
     subfolderExpansion.value[subfolderIndex] = !subfolderExpansion.value[subfolderIndex];
