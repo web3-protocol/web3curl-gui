@@ -44,6 +44,15 @@
                   <li><a class="dropdown-item" href="https://github.com/ComfyGummy/chrome-web3" target="_blank">Chrome extension</a></li>
                 </ul>
               </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  web3:// librairies
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="https://github.com/web3-protocol/web3protocol-js" target="_blank">web3protocol-js</a></li>
+                  <li><a class="dropdown-item" href="https://github.com/web3-protocol/web3protocol-go" target="_blank">web3protocol-go</a></li>
+                </ul>
+              </li>
             </ul>
             <!-- <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
