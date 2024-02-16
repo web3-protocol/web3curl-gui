@@ -34,7 +34,7 @@
     <div class="tab-content">
       <div class="tab-pane fade" :class="{ 'show active': activeTab === 'preview' }">
 
-        <span class="iframe-helptext" v-if="contentTypeHeaderValue == 'text/html'"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" /> Warning: Linked <code>web3://</code> CSS/JS files won't load, as the browser don't know how to load them. Any <code>web3://</code> links won't work as well. Use "Preview in gateway" for a live preview.</span>
+        <span class="iframe-helptext" v-if="contentTypeHeaderValue == 'text/html'"><span class="text-warning"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" /> Warning: You are viewing a HTML page. It may look broken because linked CSS/JS files won't load, because the browser don't know how to handle <code>web3://</code> URLs.</span> <br /> Either use the <a href="#" @click.stop="activeTab = 'previewInGateway'">Preview in gateway</a> tab for a live preview, or use a full <code>web3://</code> browser such as <a href="https://github.com/nand2/evm-browser" target="_blank">EVM Browser</a>.<br /></span>
         <iframe :src="dataUrlPreview"></iframe>
 
       </div>
