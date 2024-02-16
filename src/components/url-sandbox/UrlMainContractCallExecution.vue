@@ -8,7 +8,7 @@
 
       <Loader :loading="loadingStep == '2' && contractReturn.data == null">
         <span v-if="contractReturn.data != null">
-          <Bytes :data="contractReturn.data" :maxSize="64" />
+          <Bytes :data="contractReturn.data" :maxSize="64" :expandable="false" />
         </span>
       </Loader>
     </template>
@@ -84,7 +84,17 @@
 </script>
 
 <style scoped>
+  .entry {
+    margin-bottom: 5px;
+    line-height: 1.3em;
+  }
+  .entry:last-child {
+    margin-bottom: 0;
+  }
+  
+
   .entry .title {
     font-weight: bold;
   }
+  
 </style>

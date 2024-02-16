@@ -66,6 +66,9 @@
   .entry {
     margin-bottom: 5px;
   }
+  .entry:last-child {
+    margin-bottom: 0;
+  }
 
   .entry .title {
     font-weight: bold;
@@ -73,5 +76,6 @@
 
   .smart-contract-call {
     padding-left: 20px;
+    padding-top: 5px;
   }
 </style>

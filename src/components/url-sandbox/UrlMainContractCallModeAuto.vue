@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="entry">
-      <span>Method name: </span>
+      <span class="title">Method name: </span>
       <Loader :loading="loading && parsedUrl.contractCallMode == null">
         <span v-if="parsedUrl.contractCallMode != null">
           {{ parsedUrl.methodName }}
@@ -46,3 +46,19 @@
   });
 
 </script>
+
+<style scoped>
+  .entry {
+    margin-bottom: 5px;
+    line-height: 1.3em;
+  }
+  .entry:last-child {
+    margin-bottom: 0;
+  }
+  
+
+  .entry .title {
+    font-weight: bold;
+  }
+  
+</style>

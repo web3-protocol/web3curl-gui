@@ -1,11 +1,10 @@
 <template>
   <div>
-    <span>Resource parts: </span>
     <table class="table" v-if="parsedUrl.contractCallMode != null">
       <thead>
         <tr>
           <th>#</th>
-          <th>Value</th>
+          <th>Resource part</th>
         </tr>
       </thead>
       <tbody>
@@ -16,16 +15,17 @@
       </tbody>
     </table>
 
-    <span>Params: </span>
     <table class="table" v-if="parsedUrl.contractCallMode != null">
       <thead>
         <tr>
-          <th>Method Argument Type</th>
-          <th>Method Argument</th>
+          <th>#</th>
+          <th>Argument name</th>
+          <th>Argument value</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(queryArg, index) in parsedUrl.methodArgValues[1]" :key="index">
+          <td>{{ index }}</td>
           <td>{{ queryArg[0] }}</td>
           <td>{{ queryArg[1] }}</td>
         </tr>
@@ -53,3 +53,9 @@
   });
 
 </script>
+
+<style scope>
+  table {
+    width: auto;
+  }
+</style>

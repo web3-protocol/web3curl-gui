@@ -5,11 +5,11 @@
     </div>
 
     <div class="element">
-      <UrlResolveMode :parsedUrl :loadingStep :chainList />
+      <UrlResolveMode :parsedUrl :chainList :loadingStep />
     </div>
 
     <div class="element">
-      <UrlMainContractCall v-model:url="url" :parsedUrl :loadingStep />
+      <UrlMainContractCall v-model:url="url" :parsedUrl :chainList :loadingStep />
     </div>
 
     <div class="element">

@@ -87,6 +87,15 @@
 </script>
 
 <style scoped>
+  .entry {
+    margin-bottom: 5px;
+    line-height: 1.3em;
+  }
+  .entry:last-child {
+    margin-bottom: 0;
+  }
+  
+
   .entry .title {
     font-weight: bold;
   }

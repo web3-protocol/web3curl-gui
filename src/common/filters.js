@@ -1,15 +1,3 @@
-function formatBytes(hexBytes, showReducedFormMaxSize) {
-  if(hexBytes == null || hexBytes == "") {
-      hexBytes = "0x"
-  }
-
-  if(showReducedFormMaxSize > 0 && hexBytes.length > showReducedFormMaxSize + 2) {
-    hexBytes = hexBytes.substring(0, Math.round(showReducedFormMaxSize / 2) + 2) + "..." + hexBytes.substring(hexBytes.length - Math.round(showReducedFormMaxSize / 2))
-  }
-
-  return hexBytes;
-}
-
 function showBytesAsUTF8(hexBytes) {
   let utf8String = '';
 
@@ -24,4 +12,4 @@ function showBytesAsUTF8(hexBytes) {
   return utf8String;
 }
 
-export { formatBytes, showBytesAsUTF8 }
+export { showBytesAsUTF8 }

@@ -11,17 +11,18 @@ function loadTabsFromLocalStorage(urlLibrary) {
     tabs = getDefaultTabs();
   }
 
-  // For each tab linked to a libraryItemId, if no URL yet: inject its URL
-  // (tab.url is the local copy of the URL, that can be edited and not saved yet)
   tabs.forEach(tab => {
+    // If there is a libraryItemId, but the library item is not found: remove libraryItemId
+    if(tab.libraryItemId && !urlLibrary.items.find(item => item.id == tab.libraryItemId)) {
+      tab.libraryItemId = null;
+    }
+
+    // For each tab linked to a libraryItemId, if no URL yet: inject its URL
+    // (tab.url is the local copy of the URL, that can be edited and not saved yet)
     if(tab.libraryItemId && tab.url == null) {
       const libraryItem = urlLibrary.items.find(item => item.id == tab.libraryItemId);
       if(libraryItem) {
         tab.url = libraryItem.url;
-      }
-      // Library item not found: remove libraryItemId
-      else {
-        tab.libraryItemId = null;
       }
     }
   })
@@ -36,7 +37,13 @@ function saveTabsToLocalStorage(tabs, activeTab) {
 function getDefaultTabs() {
   const result = [
     {
-      libraryItemId: 1
+      libraryItemId: 100001
+    },
+    {
+      libraryItemId: 100002
+    },
+    {
+      libraryItemId: 100003
     },
   ]
 

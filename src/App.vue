@@ -1,22 +1,79 @@
 <template>
   <div id="root">
-    <div id="left-sidebar">
-      <UrlLibrary 
-        v-model:urlLibrary="urlLibrary"
-        @library-item-clicked="libraryItemClicked"
-        @library-item-renamed="libraryItemRenamed"
-        @library-item-deleted="libraryItemDeleted"
-        @update:urlLibrary="libraryUpdated" />
-    </div>
+    <div id="header">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#" @click.prevent>web3:// sandbox</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <!-- <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li> -->
+              <li class="nav-item">
+                <a class="nav-link" href="https://docs.web3url.io/" target="_blank">Documentation</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://web3url.io" target="_blank">Protocol homepage</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  ERCs
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="https://eips.ethereum.org/EIPS/eip-6860" target="_blank"><span class="badge text-bg-warning">Draft</span> <strong>ERC-6860</strong> Updated web3:// protocol</a></li>
+                  <li><a class="dropdown-item" href="https://eips.ethereum.org/EIPS/eip-4804" target="_blank"><span class="badge text-bg-success">Final</span> <strong>ERC-4804</strong> Original web3:// protocol</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="https://eips.ethereum.org/EIPS/eip-6821" target="_blank"><span class="badge text-bg-warning">Draft</span> <strong>ERC-6821</strong> Cross-blockchain domain names</a></li>
+                  <li><a class="dropdown-item" href="https://eips.ethereum.org/EIPS/eip-6944" target="_blank"><span class="badge text-bg-warning">Draft</span> <strong>ERC-6944</strong> Resource Request resolve mode</a></li>
+                  <li><a class="dropdown-item" href="https://eips.ethereum.org/EIPS/eip-7087" target="_blank"><span class="badge text-bg-warning">Draft</span> <strong>ERC-7087</strong> MIME in auto mode</a></li>
+                  <li><a class="dropdown-item" href="https://github.com/ethereum/ERCs/pull/245" target="_blank"><span class="badge text-bg-warning">Pending PR</span> <strong>ERC-7617</strong> Chunks in resource request mode</a></li>
+                  <li><a class="dropdown-item" href="https://github.com/ethereum/ERCs/pull/246" target="_blank"><span class="badge text-bg-warning">Pending PR</span> <strong>ERC-7618</strong> Compression in resource request mode</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  web3:// clients
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="https://github.com/web3-protocol/web3curl-js" target="_blank">Web3curl</a></li>
+                  <li><a class="dropdown-item" href="https://docs.web3url.io/web3-clients/https-gateway#w3link.io-all-blockchains-public-gateway" target="_blank">w3link.io HTTPS gateway</a></li>
+                  <li><a class="dropdown-item" href="https://github.com/nand2/evm-browser" target="_blank">EVM Browser</a></li>
+                  <li><a class="dropdown-item" href="https://github.com/ComfyGummy/chrome-web3" target="_blank">Chrome extension</a></li>
+                </ul>
+              </li>
+            </ul>
+            <!-- <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form> -->
+          </div>
+        </div>
+      </nav>
 
-    <div id="main">
-      <TabbedUrlSandbox 
-        v-model:tabs="urlTabs" 
-        v-model:activeTab="activeTab"
-        v-model:urlLibrary="urlLibrary"
-        @update:urlLibrary="libraryUpdated"
-        @update:tabs="tabsUpdated"
-        @update:activeTab="tabsUpdated" />
+
+    </div>
+    <div id="body">
+      <div id="left-sidebar">
+        <UrlLibrary 
+          v-model:urlLibrary="urlLibrary"
+          @library-item-clicked="libraryItemClicked"
+          @library-item-renamed="libraryItemRenamed"
+          @library-item-deleted="libraryItemDeleted"
+          @update:urlLibrary="libraryUpdated" />
+      </div>
+
+      <div id="main">
+        <TabbedUrlSandbox 
+          v-model:tabs="urlTabs" 
+          v-model:activeTab="activeTab"
+          v-model:urlLibrary="urlLibrary"
+          @update:urlLibrary="libraryUpdated"
+          @update:tabs="tabsUpdated"
+          @update:activeTab="tabsUpdated" />
+      </div>
     </div>
   </div>
 </template>
@@ -85,8 +142,22 @@
 <style scoped>
   #root {
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 0px;
     height: 100vh;
+  }
+
+  #header {
+    flex: 0 0 20px;
+  }
+  #header .navbar-brand small {
+    font-size: 12px;
+  }
+
+  #body {
+    flex: 1 0 0;
+    display: flex;
+    gap: 20px;
   }
 
   #left-sidebar {

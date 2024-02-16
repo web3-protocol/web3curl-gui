@@ -103,6 +103,7 @@
   function addNewTab() {
     tabs.value.push({url:''});
     emit('update:tabs', tabs.value)
+    activeTab.value = tabs.value.length - 1
   }
   
   function closeTab(index) {

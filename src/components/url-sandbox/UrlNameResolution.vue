@@ -50,7 +50,7 @@
           <font-awesome-icon v-if="isFetchNameResolverCallExpanded == true" :icon="['fas', 'chevron-down']" />
         </button>
         
-        <span class="title"> Domain name resolver: </span>
+        <span class="title">Domain name resolver: </span>
         <Loader :loading="loadingStep == '1.2' && parsedUrl.contractAddress == null">
           <span v-if="parsedUrl.contractAddress != null">
             <span v-if="parsedUrl.nameResolution.fetchNameResolverCall">
@@ -177,6 +177,17 @@
 </script>
 
 <style scoped>
+  .entry {
+    margin-bottom: 5px;
+  }
+  .entry:last-child {
+    margin-bottom: 0;
+  }
+
+  .entry button {
+    margin-right: 10px;
+  }
+
   .entry .title {
     font-weight: bold;
   }
