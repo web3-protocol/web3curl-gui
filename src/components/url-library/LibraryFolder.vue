@@ -63,7 +63,8 @@
 
   const emit = defineEmits(['libraryItemClicked', 'libraryItemRenamed', 'libraryItemDeleted'])
 
-  const subfolderExpansion = ref({0: true});
+  // Auto-expand first folder if not in mobile view
+  const subfolderExpansion = ref({0: window.screen.availWidth > 768});
 
   function toggleChildren(subfolderIndex) {
     subfolderExpansion.value[subfolderIndex] = !subfolderExpansion.value[subfolderIndex];

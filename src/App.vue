@@ -169,11 +169,31 @@
     gap: 20px;
   }
 
+  @media (max-width: 768px) {
+    #body {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
   #left-sidebar {
     flex: 0 0 400px;
+  }
+  @media (max-width: 768px) {
+    #left-sidebar {
+      flex: 0 0 auto;
+    }
   }
   
   #main {
     flex: 1 0 0;
+    padding-top: 10px;
+    padding-right: 10px;
+  }
+  @media (max-width: 768px) {
+    #main {
+      padding-top: 0px;
+      padding-left: 10px;
+    }
   }
 </style>

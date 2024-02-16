@@ -218,8 +218,6 @@
 
 <style scoped>
   #tabbed-url-sandbox {
-    padding-top: 10px;
-    padding-right: 10px;
   }
 
   .btn-close-tab {
