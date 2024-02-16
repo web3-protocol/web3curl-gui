@@ -42,27 +42,31 @@
 
 
       <div class="entry">
-        <button
-          :disabled="parsedUrl.nameResolution?.fetchNameResolverCall == null"
-          @click="isFetchNameResolverCallExpanded = !isFetchNameResolverCallExpanded" 
-          class="btn btn-outline-secondary btn-sm btn-contract-detail-expander">
-          <font-awesome-icon v-if="isFetchNameResolverCallExpanded == false" :icon="['fas', 'chevron-right']" />
-          <font-awesome-icon v-if="isFetchNameResolverCallExpanded == true" :icon="['fas', 'chevron-down']" />
-        </button>
-        
-        <span 
-          :class="{title: true, clickable: parsedUrl.nameResolution?.fetchNameResolverCall != null}" 
-          @click="parsedUrl.nameResolution?.fetchNameResolverCall != null && (isFetchNameResolverCallExpanded = !isFetchNameResolverCallExpanded)">Domain name resolver: </span>
-        <Loader :loading="loadingStep == '1.2' && parsedUrl.contractAddress == null">
-          <span v-if="parsedUrl.contractAddress != null">
-            <span v-if="parsedUrl.nameResolution.fetchNameResolverCall">
-              <ContractAddress :address="parsedUrl.nameResolution.fetchNameResolverCall.decodedResult" :chainId="parsedUrl.nameResolution.resolverChainId" :chainList="chainList" />
-            </span>
-            <span v-else>
-              (not made)
-            </span>
+        <div class="entry-header">
+          <button
+            :disabled="parsedUrl.nameResolution?.fetchNameResolverCall == null"
+            @click="isFetchNameResolverCallExpanded = !isFetchNameResolverCallExpanded" 
+            class="btn btn-outline-secondary btn-sm btn-contract-detail-expander">
+            <font-awesome-icon v-if="isFetchNameResolverCallExpanded == false" :icon="['fas', 'chevron-right']" />
+            <font-awesome-icon v-if="isFetchNameResolverCallExpanded == true" :icon="['fas', 'chevron-down']" />
+          </button>
+          
+          <span
+            :class="{clickable: parsedUrl.nameResolution?.fetchNameResolverCall != null}" 
+            @click="parsedUrl.nameResolution?.fetchNameResolverCall != null && (isFetchNameResolverCallExpanded = !isFetchNameResolverCallExpanded)">
+            <span class="title">Domain name resolver: </span>
+            <Loader :loading="loadingStep == '1.2' && parsedUrl.contractAddress == null">
+              <span v-if="parsedUrl.contractAddress != null">
+                <span v-if="parsedUrl.nameResolution.fetchNameResolverCall">
+                  <ContractAddress :address="parsedUrl.nameResolution.fetchNameResolverCall.decodedResult" :chainId="parsedUrl.nameResolution.resolverChainId" :chainList="chainList" />
+                </span>
+                <span v-else>
+                  (not made)
+                </span>
+              </span>
+            </Loader>
           </span>
-        </Loader>
+        </div>
 
         <div class="smart-contract-call" v-if="isFetchNameResolverCallExpanded">
           <ContractCall
@@ -74,27 +78,31 @@
 
 
       <div class="entry">
-        <button
-          :disabled="parsedUrl.nameResolution?.erc6821ContentContractTxtCall == null"
-          @click="isErc6821ContentContractTxtCallExpanded = !isErc6821ContentContractTxtCallExpanded" 
-          class="btn btn-outline-secondary btn-sm btn-contract-detail-expander">
-          <font-awesome-icon v-if="isErc6821ContentContractTxtCallExpanded == false" :icon="['fas', 'chevron-right']" />
-          <font-awesome-icon v-if="isErc6821ContentContractTxtCallExpanded == true" :icon="['fas', 'chevron-down']" />
-        </button>
+        <div class="entry-header">
+          <button
+            :disabled="parsedUrl.nameResolution?.erc6821ContentContractTxtCall == null"
+            @click="isErc6821ContentContractTxtCallExpanded = !isErc6821ContentContractTxtCallExpanded" 
+            class="btn btn-outline-secondary btn-sm btn-contract-detail-expander">
+            <font-awesome-icon v-if="isErc6821ContentContractTxtCallExpanded == false" :icon="['fas', 'chevron-right']" />
+            <font-awesome-icon v-if="isErc6821ContentContractTxtCallExpanded == true" :icon="['fas', 'chevron-down']" />
+          </button>
 
-        <span 
-          :class="{title: true, clickable: parsedUrl.nameResolution?.erc6821ContentContractTxtCall != null}" 
-          @click="parsedUrl.nameResolution?.erc6821ContentContractTxtCall != null && (isErc6821ContentContractTxtCallExpanded = !isErc6821ContentContractTxtCallExpanded)">contentcontract TXT field: </span>
-        <Loader :loading="loadingStep == '1.2' && parsedUrl.contractAddress == null">
-          <span v-if="parsedUrl.contractAddress != null">
-            <span v-if="parsedUrl.nameResolution.erc6821ContentContractTxtCall">
-              {{ parsedUrl.nameResolution.erc6821ContentContractTxtCall.decodedResult }}
-            </span>
-            <span v-else>
-              (not made)
-            </span>
+          <span 
+            :class="{clickable: parsedUrl.nameResolution?.erc6821ContentContractTxtCall != null}" 
+            @click="parsedUrl.nameResolution?.erc6821ContentContractTxtCall != null && (isErc6821ContentContractTxtCallExpanded = !isErc6821ContentContractTxtCallExpanded)">
+            <span class="title">contentcontract TXT field: </span>
+            <Loader :loading="loadingStep == '1.2' && parsedUrl.contractAddress == null">
+              <span v-if="parsedUrl.contractAddress != null">
+                <span v-if="parsedUrl.nameResolution.erc6821ContentContractTxtCall">
+                  {{ parsedUrl.nameResolution.erc6821ContentContractTxtCall.decodedResult }}
+                </span>
+                <span v-else>
+                  (not made)
+                </span>
+              </span>
+            </Loader>
           </span>
-        </Loader>
+        </div>
 
         <div class="smart-contract-call" v-if="isErc6821ContentContractTxtCallExpanded">
           <ContractCall
@@ -106,27 +114,31 @@
 
 
       <div class="entry">
-        <button
-          :disabled="parsedUrl.nameResolution?.resolveNameCall == null"
-          @click="isResolveNameCallExpanded = !isResolveNameCallExpanded" 
-          class="btn btn-outline-secondary btn-sm btn-contract-detail-expander">
-          <font-awesome-icon v-if="isResolveNameCallExpanded == false" :icon="['fas', 'chevron-right']" />
-          <font-awesome-icon v-if="isResolveNameCallExpanded == true" :icon="['fas', 'chevron-down']" />
-        </button>
+        <div class="entry-header">
+          <button
+            :disabled="parsedUrl.nameResolution?.resolveNameCall == null"
+            @click="isResolveNameCallExpanded = !isResolveNameCallExpanded" 
+            class="btn btn-outline-secondary btn-sm btn-contract-detail-expander">
+            <font-awesome-icon v-if="isResolveNameCallExpanded == false" :icon="['fas', 'chevron-right']" />
+            <font-awesome-icon v-if="isResolveNameCallExpanded == true" :icon="['fas', 'chevron-down']" />
+          </button>
 
-        <span 
-          :class="{title: true, clickable: parsedUrl.nameResolution?.resolveNameCall != null}" 
-          @click="parsedUrl.nameResolution?.resolveNameCall != null && (isResolveNameCallExpanded = !isResolveNameCallExpanded)">Standard name resolution: </span>
-        <Loader :loading="loadingStep == '1.2' && parsedUrl.contractAddress == null">
-          <span v-if="parsedUrl.contractAddress != null">
-            <span v-if="parsedUrl.nameResolution.resolveNameCall">
-              <ContractAddress :address="parsedUrl.nameResolution.resolveNameCall.decodedResult" :chainId="parsedUrl.nameResolution.resolverChainId" :chainList="chainList" />
-            </span>
-            <span v-else>
-              (not made)
-            </span>
+          <span
+            :class="{clickable: parsedUrl.nameResolution?.resolveNameCall != null}" 
+            @click="parsedUrl.nameResolution?.resolveNameCall != null && (isResolveNameCallExpanded = !isResolveNameCallExpanded)">
+            <span class="title">Standard name resolution: </span>
+            <Loader :loading="loadingStep == '1.2' && parsedUrl.contractAddress == null">
+              <span v-if="parsedUrl.contractAddress != null">
+                <span v-if="parsedUrl.nameResolution.resolveNameCall">
+                  <ContractAddress :address="parsedUrl.nameResolution.resolveNameCall.decodedResult" :chainId="parsedUrl.nameResolution.resolverChainId" :chainList="chainList" />
+                </span>
+                <span v-else>
+                  (not made)
+                </span>
+              </span>
+            </Loader>
           </span>
-        </Loader>
+        </div>
 
         <div class="smart-contract-call" v-if="isResolveNameCallExpanded">
           <ContractCall
@@ -190,19 +202,25 @@
     margin-bottom: 0;
   }
 
+  .entry-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+  }
+
   .entry button {
-    margin-right: 10px;
   }
 
   .entry .title {
     font-weight: bold;
   }
-  .entry .title.clickable {
+  .entry .clickable {
     cursor: pointer;
   }
 
   .btn-contract-detail-expander {
-    margin-right: 5px
+
   }
 
   .smart-contract-call {
