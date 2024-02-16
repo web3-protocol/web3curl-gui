@@ -12,7 +12,7 @@
             Calldata: <Bytes :data="parsedUrl.calldata" :maxSize="64" :expandable="false" />
           </span>
           <span v-else-if="parsedUrl.contractCallMode == 'method'">
-            Method: <code>{{ parsedUrl.methodName }}(<span v-for="(methodArgType, index) in props.parsedUrl.methodArgs" :key="index">
+            Method: <code style="word-break: break-all;">{{ parsedUrl.methodName }}(<span v-for="(methodArgType, index) in props.parsedUrl.methodArgs" :key="index">
                 <em>{{ methodArgType.type }}:</em> {{ parsedUrl.methodArgValues[index] }}{{ index !== props.parsedUrl.methodArgs.length - 1 ? ', ' : '' }}
               </span>)
             </code>

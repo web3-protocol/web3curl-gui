@@ -46,7 +46,7 @@
       </div>
       <div class="tab-pane fade" :class="{ 'show active': activeTab === 'bytes' }">
         
-        <div style="display: flex; gap: 20px">
+        <div class="bytes-display">
           <pre>{{ formatBytesBufferToHex(outputBuffer) }}</pre>
           <pre>{{ formatBytesBufferToAscii(outputBuffer) }}</pre>
         </div>
@@ -261,5 +261,15 @@
     width: 100%;
     border: none;
     height: 600px;
+  }
+
+  .bytes-display {
+    display: flex;
+    gap: 20px;
+  }
+  @media (max-width: 768px) {
+    .bytes-display pre {
+      flex: 0 0 50%
+    }
   }
 </style>
