@@ -8,7 +8,7 @@
         <font-awesome-icon v-if="isExpanded == true" :icon="['fas', 'chevron-down']" />
       </button>
 
-      <span class="header-name">
+      <span class="header-name" @click="isExpanded = !isExpanded">
         <slot name="header-name" />
       </span>
       <slot name="header-value" />
@@ -30,6 +30,7 @@
   .header-name {
     font-weight: bold;
     padding-left: 8px;
+    cursor: pointer;
   }
 
   .element-body {

@@ -50,7 +50,9 @@
           <font-awesome-icon v-if="isFetchNameResolverCallExpanded == true" :icon="['fas', 'chevron-down']" />
         </button>
         
-        <span class="title">Domain name resolver: </span>
+        <span 
+          :class="{title: true, clickable: parsedUrl.nameResolution?.fetchNameResolverCall != null}" 
+          @click="parsedUrl.nameResolution?.fetchNameResolverCall != null && (isFetchNameResolverCallExpanded = !isFetchNameResolverCallExpanded)">Domain name resolver: </span>
         <Loader :loading="loadingStep == '1.2' && parsedUrl.contractAddress == null">
           <span v-if="parsedUrl.contractAddress != null">
             <span v-if="parsedUrl.nameResolution.fetchNameResolverCall">
@@ -80,7 +82,9 @@
           <font-awesome-icon v-if="isErc6821ContentContractTxtCallExpanded == true" :icon="['fas', 'chevron-down']" />
         </button>
 
-        <span class="title">contentcontract TXT field: </span>
+        <span 
+          :class="{title: true, clickable: parsedUrl.nameResolution?.erc6821ContentContractTxtCall != null}" 
+          @click="parsedUrl.nameResolution?.erc6821ContentContractTxtCall != null && (isErc6821ContentContractTxtCallExpanded = !isErc6821ContentContractTxtCallExpanded)">contentcontract TXT field: </span>
         <Loader :loading="loadingStep == '1.2' && parsedUrl.contractAddress == null">
           <span v-if="parsedUrl.contractAddress != null">
             <span v-if="parsedUrl.nameResolution.erc6821ContentContractTxtCall">
@@ -110,7 +114,9 @@
           <font-awesome-icon v-if="isResolveNameCallExpanded == true" :icon="['fas', 'chevron-down']" />
         </button>
 
-        <span class="title">Standard name resolution: </span>
+        <span 
+          :class="{title: true, clickable: parsedUrl.nameResolution?.resolveNameCall != null}" 
+          @click="parsedUrl.nameResolution?.resolveNameCall != null && (isResolveNameCallExpanded = !isResolveNameCallExpanded)">Standard name resolution: </span>
         <Loader :loading="loadingStep == '1.2' && parsedUrl.contractAddress == null">
           <span v-if="parsedUrl.contractAddress != null">
             <span v-if="parsedUrl.nameResolution.resolveNameCall">
@@ -190,6 +196,9 @@
 
   .entry .title {
     font-weight: bold;
+  }
+  .entry .title.clickable {
+    cursor: pointer;
   }
 
   .btn-contract-detail-expander {
