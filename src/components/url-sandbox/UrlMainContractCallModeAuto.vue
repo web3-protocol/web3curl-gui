@@ -4,7 +4,7 @@
       <span class="title">Method name: </span>
       <Loader :loading="loading && parsedUrl.contractCallMode == null">
         <span v-if="parsedUrl.contractCallMode != null">
-          {{ parsedUrl.methodName }}
+          <code>{{ parsedUrl.methodName }}</code>
         </span>
       </Loader>
     </div>

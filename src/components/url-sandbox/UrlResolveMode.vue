@@ -7,7 +7,10 @@
     <template #header-value>
 
       <Loader :loading="loadingStep == '1.3' && parsedUrl.mode == null">
-        <code>{{ parsedUrl.mode }}</code>
+        <span v-if="parsedUrl.mode">
+          <code>{{ parsedUrl.mode }}</code>
+          <sup style="margin-left: 3px"><a :href="getModeHelpUrl(parsedUrl.mode)" target="_blank"><font-awesome-icon :icon="['far', 'circle-question']" /></a></sup>
+        </span>
       </Loader>
 
     </template>
@@ -40,7 +43,6 @@
   import UrlElement from './UrlElement.vue';
   import ContractCall from '../common/ContractCall.vue';
   import Loader from '../common/Loader.vue';
-  import { showBytesAsUTF8 as _showBytesAsUTF8 } from '../../common/filters.js'
   import { ref, computed } from 'vue';
 
   const props = defineProps({
@@ -59,7 +61,15 @@
 
   const isExpanded = ref(false);
 
-  const showBytesAsUTF8 = _showBytesAsUTF8;
+  function getModeHelpUrl(mode) {
+    if(mode == 'auto') {
+      return 'https://docs.web3url.io/web3-url-structure/resolve-mode/mode-auto';
+    } else if(mode == 'manual') {
+      return 'https://docs.web3url.io/web3-url-structure/resolve-mode/mode-manual';
+    } else if(mode == 'resourceRequest') {
+      return 'https://docs.web3url.io/web3-url-structure/resolve-mode/mode-resource-request';
+    }
+  }
 </script>
 
 <style scoped>

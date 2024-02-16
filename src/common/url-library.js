@@ -16,21 +16,22 @@ function getDefaultLibrary() {
     // The list of URLs of the library
     // Id starts at 100000 to avoid conflicts with the one saved by the user
     items: [
-      // Main examples
+      // Basic examples
       {
         id: 100001,
-        name: "Vitalik's blog on Arbitrum Nova",
-        url: "web3://vitalikblog.eth"
-      }, 
+        name: "Call a contract method on sepolia",
+        url: "web3://0x10fE786Dc7Cb9527197C24c53d7330D3db329524:11155111/levelAndTile/2/50?returns=(uint256,uint256)"
+      },
+      // Examples for domain names
       {
-        id: 100002,
-        name: "Display a Terraform (on-chain NFT)",
-        url: "web3://0x4e1f41613c9084fdb9e34e11fae9412427480e56/tokenSVG/9352?mime.type=svg"
+        id: 100401,
+        name: "Fetch an USDC balance",
+        url: "web3://usdc.eth/balanceOf/vitalik.eth?returns=(uint256)"
       },
       {
-        id: 100003,
-        name: "Fetch the USDC balance of nemorino.eth",
-        url: "web3://usdc.eth/balanceOf/nemorino.eth?returns=(uint256)"
+        id: 100402,
+        name: "Fetch a CSS file on Arbitrum Nova",
+        url: "web3://vitalikblog.eth/css/misc.css"
       },
       // Examples for manual mode
       {
@@ -43,11 +44,6 @@ function getDefaultLibrary() {
         name: "Vitalik's blog on Arbitrum Nova",
         url: "web3://vitalikblog.eth"
       },
-      {
-        id: 100103,
-        name: "Fetch a CSS file on Arbitrum Nova",
-        url: "web3://vitalikblog.eth/css/misc.css"
-      },
       // Examples for auto mode
       {
         id: 100201,
@@ -56,19 +52,25 @@ function getDefaultLibrary() {
       },
       {
         id: 100202,
+        name: "Display a Terraform (on-chain NFT)",
+        url: "web3://0x4e1f41613c9084fdb9e34e11fae9412427480e56/tokenSVG/9352?mime.type=svg"
+      },
+      {
+        id: 100203,
         name: "Fetch a complex data structure",
         url: "web3://0x4e1f41613c9084fdb9e34e11fae9412427480e56/structureData/1699519297?returns=((uint,uint,int,int,int)[20])"
       },
       {
-        id: 100203,
+        id: 100204,
         name: "Call a method returning bytes, no MIME cast (bug)",
         url: "web3://0xA5aFC9fE76a28fB12C60954Ed6e2e5f8ceF64Ff2/resourceName"
       },
       {
-        id: 100204,
+        id: 100205,
         name: "Call a method returning bytes, cast result as text",
         url: "web3://0xA5aFC9fE76a28fB12C60954Ed6e2e5f8ceF64Ff2/resourceName?mime.type=txt"
       },
+      // Examples for resource request mode
       {
         id: 100301,
         name: "ResourceRequest resolve mode website",
@@ -88,29 +90,28 @@ function getDefaultLibrary() {
         id: 100304,
         name: "ResourceRequest mode using brotli compression",
         url: "web3://0x7cee6ee8a44ba3f429f868114cf7e41aec4f8641:11155111/brotlied-file.txt"
-      },
-      {
-        id: 6,
-        name: "Call a contract method on goerli",
-        url: "web3://0x76010876050387FA66E28a1883aD73d576D88Bf2:5/levelAndTile/2/50?returns=(uint256,uint256)"
-      },
+      }
     ],
     // The tree organization of the library
     tree: {
       folders: [{
         name: "Examples",
         folders: [{
-          name: "Main",
+          name: "Basic",
           folders: [],
-          libraryItemIds: [100001, 100002, 100003]
+          libraryItemIds: [100001]
+        }, {
+          name: "Domain name resolution",
+          folders: [],
+          libraryItemIds: [100401, 100402]
         }, {
           name: "Manual resolve mode",
           folders: [],
-          libraryItemIds: [100101, 100102, 100103]
+          libraryItemIds: [100101, 100102]
         }, {
           name: "Auto resolve mode",
           folders: [],
-          libraryItemIds: [100201, 100202, 100203, 100204]
+          libraryItemIds: [100201, 100202, 100203, 100204, 100205]
         }, {
           name: "Resource request resolve mode",
           folders: [],

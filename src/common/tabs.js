@@ -37,13 +37,16 @@ function saveTabsToLocalStorage(tabs, activeTab) {
 function getDefaultTabs() {
   const result = [
     {
+      libraryItemId: 100102
+    },
+    {
+      libraryItemId: 100202
+    },
+    {
+      libraryItemId: 100401
+    },
+    {
       libraryItemId: 100001
-    },
-    {
-      libraryItemId: 100002
-    },
-    {
-      libraryItemId: 100003
     },
   ]
 
