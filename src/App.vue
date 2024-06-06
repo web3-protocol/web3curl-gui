@@ -29,8 +29,8 @@
                   <li><a class="dropdown-item" href="https://eips.ethereum.org/EIPS/eip-6821" target="_blank"><span class="badge text-bg-warning">Draft</span> <strong>ERC-6821</strong> Cross-blockchain domain names</a></li>
                   <li><a class="dropdown-item" href="https://eips.ethereum.org/EIPS/eip-6944" target="_blank"><span class="badge text-bg-warning">Draft</span> <strong>ERC-6944</strong> Resource Request resolve mode</a></li>
                   <li><a class="dropdown-item" href="https://eips.ethereum.org/EIPS/eip-7087" target="_blank"><span class="badge text-bg-warning">Draft</span> <strong>ERC-7087</strong> MIME in auto mode</a></li>
-                  <li><a class="dropdown-item" href="https://github.com/ethereum/ERCs/pull/245" target="_blank"><span class="badge text-bg-warning">Pending PR</span> <strong>ERC-7617</strong> Chunks in resource request mode</a></li>
-                  <li><a class="dropdown-item" href="https://github.com/ethereum/ERCs/pull/246" target="_blank"><span class="badge text-bg-warning">Pending PR</span> <strong>ERC-7618</strong> Compression in resource request mode</a></li>
+                  <li><a class="dropdown-item" href="https://eips.ethereum.org/EIPS/eip-7617" target="_blank"><span class="badge text-bg-warning">Draft</span> <strong>ERC-7617</strong> Chunks in resource request mode</a></li>
+                  <li><a class="dropdown-item" href="https://eips.ethereum.org/EIPS/eip-7618" target="_blank"><span class="badge text-bg-warning">Draft</span> <strong>ERC-7618</strong> Compression in resource request mode</a></li>
                 </ul>
               </li>
               <li class="nav-item dropdown">
